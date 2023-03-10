@@ -24,7 +24,7 @@ public class CreateNewCustomer extends AppCompatActivity {
     private static Button btnQuery;
     private static EditText edtitemcode;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.0.106/ancuin/InsertTrans.php";
+    private static String urlHost = "http://192.168.0.107/ancuin/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     private static String fullname = "";

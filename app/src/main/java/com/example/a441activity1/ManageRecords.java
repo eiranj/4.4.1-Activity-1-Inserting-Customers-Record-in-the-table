@@ -1,5 +1,7 @@
 package com.example.a441activity1;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -17,8 +19,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,11 +30,11 @@ public class ManageRecords extends AppCompatActivity {
     TextView textView, txtDefault, txtDefault_gender, txtDefault_civilStatus, txtDefault_ID;
     private static EditText edtitemcode;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.254.115/ancuin/SelectItemDetails.php";
-    private static String urlHostDelete = "http://192.168.254.115/ancuin/delete.php";
-    private static String urlHostGender = "http://192.168.254.115/ancuin/selectGender.php";
-    private static String urlHostCivilStatus = "http://192.168.254.115/ancuin/selectCivilStatus.php";
-    private static String urlHostID = "http://192.168.254.115/ancuin/selectId.php";
+    private static String urlHost = "http://192.168.0.107/ancuin/SelectItemDetails.php";
+    private static String urlHostDelete="http://192.168.0.107/ancuin/delete.php";
+    private static String urlHostGender = "http://192.168.0.107/ancuin/selectGender.php";
+    private static String urlHostCivilStatus = "http://192.168.0.107/ancuin/selectCivilStatus.php";
+    private static String urlHostID = "http://192.168.0.107/ancuin/selectId.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     private static String cItemcode = "";
@@ -64,18 +64,17 @@ public class ManageRecords extends AppCompatActivity {
 
         btnQuery = (Button) findViewById(R.id.btnQuery);
         edtitemcode = (EditText) findViewById(R.id.edtitemcode);
-        txtDefault = (TextView) findViewById(R.id.tv_default);
+        txtDefault= (TextView) findViewById(R.id.tv_default);
         listView = (ListView) findViewById(R.id.listview);
         textView = (TextView) findViewById(R.id.textView4);
-        txtDefault_gender = (TextView) findViewById(R.id.txt_gender);
-        txtDefault_civilStatus = (TextView) findViewById(R.id.txt_civilStatus);
+        txtDefault_gender = (TextView) findViewById(R.id.txt_gender); txtDefault_civilStatus = (TextView) findViewById(R.id.txt_civilStatus);
         txtDefault_ID = (TextView) findViewById(R.id.txt_ID);
-        txtDefault.setVisibility(View.GONE);
-        txtDefault_gender.setVisibility(View.GONE);
+        txtDefault.setVisibility(View.GONE); txtDefault_gender.setVisibility(View.GONE);
         txtDefault_civilStatus.setVisibility(View.GONE);
         txtDefault_ID.setVisibility(View.GONE);
 
         Toast.makeText(ManageRecords.this, "Nothing Selected", Toast.LENGTH_SHORT).show();
+
 
 
         btnQuery.setOnClickListener(new View.OnClickListener() {
@@ -158,17 +157,14 @@ public class ManageRecords extends AppCompatActivity {
             }
         });
     }
-
     private class uploadDataToURL extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public uploadDataToURL() {
-        }
-
+        public uploadDataToURL(){}
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute(){
             super.onPreExecute();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -177,7 +173,7 @@ public class ManageRecords extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
@@ -196,49 +192,44 @@ public class ManageRecords extends AppCompatActivity {
                 } else {
                     return "HTTPSERVER_ERROR";
                 }
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String s){
             super.onPostExecute(s);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new AlertDialog.Builder(ManageRecords.this);
-            if (s != null) {
-                if (isEmpty.equals("") && !s.equals("HTTPSERVER_ERROR")) {
-                }
+            if (s !=null) {
+                if (isEmpty.equals("") && !s.equals("HTTPSERVER_ERROR")) { }
                 //Toast.makeText(ManageRecords.this, s, Toast.LENGTH_SHORT).show();
                 String wew = s;
                 String str = wew;
-                final String fnames[] = str.split("-");
+                final String fnames[]= str.split("-");
                 list_fnames = new ArrayList<String>(Arrays.asList(fnames));
                 adapter_fnames = new ArrayAdapter<String>(ManageRecords.this,
-                        android.R.layout.simple_list_item_1, list_fnames);
+                        android.R.layout.simple_list_item_1,list_fnames);
 
                 listView.setAdapter(adapter_fnames);
                 textView.setText(listView.getAdapter().getCount() + " " + "record(s) found");
-            } else {
+            }else{
                 alert.setMessage("Query Interrupted ... \nPlease Check Internet Connection");
                 alert.setTitle("Error");
                 alert.show();
             }
         }
     }
-
     private class Gender extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public Gender() {
-        }
-
+        public Gender(){}
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute(){
             super.onPreExecute();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -247,7 +238,7 @@ public class ManageRecords extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
@@ -266,48 +257,43 @@ public class ManageRecords extends AppCompatActivity {
                 } else {
                     return "HTTPSERVER_ERROR";
                 }
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(String Gender) {
+        protected void onPostExecute(String Gender){
             super.onPostExecute(Gender);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new AlertDialog.Builder(ManageRecords.this);
-            if (Gender != null) {
-                if (isEmpty.equals("") && !Gender.equals("HTTPSERVER_ERROR")) {
-                }
+            if (Gender !=null) {
+                if (isEmpty.equals("") && !Gender.equals("HTTPSERVER_ERROR")) { }
                 //Toast.makeText(ManageRecords.this, s, Toast.LENGTH_SHORT).show();
                 String gender = Gender;
                 String str = gender;
-                final String Genders[] = str.split("-");
+                final String Genders[]= str.split("-");
                 list_gender = new ArrayList<String>(Arrays.asList(Genders));
                 adapter_gender = new ArrayAdapter<String>(ManageRecords.this,
-                        android.R.layout.simple_list_item_1, list_gender);
+                        android.R.layout.simple_list_item_1,list_gender);
 
                 //listView.setAdapter(adapter_gender);
-            } else {
+            }else{
                 alert.setMessage("Query Interrupted ... \nPlease Check Internet Connection");
                 alert.setTitle("Error");
                 alert.show();
             }
         }
     }
-
     private class Civil extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public Civil() {
-        }
-
+        public Civil(){}
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute(){
             super.onPreExecute();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -316,7 +302,7 @@ public class ManageRecords extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
@@ -335,48 +321,43 @@ public class ManageRecords extends AppCompatActivity {
                 } else {
                     return "HTTPSERVER_ERROR";
                 }
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(String CS) {
+        protected void onPostExecute(String CS){
             super.onPostExecute(CS);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new AlertDialog.Builder(ManageRecords.this);
-            if (CS != null) {
-                if (isEmpty.equals("") && !CS.equals("HTTPSERVER_ERROR")) {
-                }
+            if (CS !=null) {
+                if (isEmpty.equals("") && !CS.equals("HTTPSERVER_ERROR")) { }
                 //Toast.makeText(ManageRecords.this, s, Toast.LENGTH_SHORT).show();
                 String CivilStat = CS;
                 String str = CivilStat;
-                final String Civs[] = str.split("-");
+                final String Civs[]= str.split("-");
                 list_civilStatus = new ArrayList<String>(Arrays.asList(Civs));
                 adapter_civilStatus = new ArrayAdapter<String>(ManageRecords.this,
-                        android.R.layout.simple_list_item_1, list_civilStatus);
+                        android.R.layout.simple_list_item_1,list_civilStatus);
 
                 //listView.setAdapter(adapter_gender);
-            } else {
+            }else{
                 alert.setMessage("Query Interrupted ... \nPlease Check Internet Connection");
                 alert.setTitle("Error");
                 alert.show();
             }
         }
     }
-
     private class id extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public id() {
-        }
-
+        public id(){}
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute(){
             super.onPreExecute();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -385,7 +366,7 @@ public class ManageRecords extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
@@ -404,49 +385,44 @@ public class ManageRecords extends AppCompatActivity {
                 } else {
                     return "HTTPSERVER_ERROR";
                 }
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(String aydi) {
+        protected void onPostExecute(String aydi){
             super.onPostExecute(aydi);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new AlertDialog.Builder(ManageRecords.this);
-            if (aydi != null) {
-                if (isEmpty.equals("") && !aydi.equals("HTTPSERVER_ERROR")) {
-                }
+            if (aydi !=null) {
+                if (isEmpty.equals("") && !aydi.equals("HTTPSERVER_ERROR")) { }
                 Toast.makeText(ManageRecords.this, "Data selected", Toast.LENGTH_SHORT).show();
 
                 String AYDI = aydi;
                 String str = AYDI;
-                final String ayds[] = str.split("-");
+                final String ayds[]= str.split("-");
                 list_ID = new ArrayList<String>(Arrays.asList(ayds));
                 adapter_ID = new ArrayAdapter<String>(ManageRecords.this,
-                        android.R.layout.simple_list_item_1, list_ID);
+                        android.R.layout.simple_list_item_1,list_ID);
 
                 //listView.setAdapter(adapter_gender);
-            } else {
+            }else{
                 alert.setMessage("Query Interrupted ... \nPlease Check Internet Connection");
                 alert.setTitle("Error");
                 alert.show();
             }
         }
     }
-
     private class delete extends AsyncTask<String, String, String> {
         String cPOST = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public delete() {
-        }
-
+        public delete(){}
         @Override
-        protected void onPreExecute() {
+        protected void onPreExecute(){
             super.onPreExecute();
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
@@ -455,7 +431,7 @@ public class ManageRecords extends AppCompatActivity {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             int nSuccess;
             try {
                 ContentValues cv = new ContentValues();
@@ -474,25 +450,23 @@ public class ManageRecords extends AppCompatActivity {
                 } else {
                     return "HTTPSERVER_ERROR";
                 }
-            } catch (JSONException e) {
+            } catch (JSONException e){
                 e.printStackTrace();
             }
             return null;
         }
-
         @Override
-        protected void onPostExecute(String del) {
+        protected void onPostExecute(String del){
             super.onPostExecute(del);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new AlertDialog.Builder(ManageRecords.this);
-            if (aydi != null) {
-                if (isEmpty.equals("") && !del.equals("HTTPSERVER_ERROR")) {
-                }
+            if (aydi !=null) {
+                if (isEmpty.equals("") && !del.equals("HTTPSERVER_ERROR")) { }
                 Toast.makeText(ManageRecords.this, "Data deleted", Toast.LENGTH_SHORT).show();
 
 
-            } else {
+            }else{
                 alert.setMessage("Query Interrupted ... \nPlease Check Internet Connection");
                 alert.setTitle("Error");
                 alert.show();

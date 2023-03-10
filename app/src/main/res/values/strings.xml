@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">4.4.1 Activity 1</string>
+    <string name="lblQuery">Query Data</string>
+    <string name="msg1">Hello!</string>
+    <string name="msg2">Yes</string>
+    <string name="msg3">No</string>
+    <string name="msg4">Edit the records of </string>
+    <string name="msg5">Record</string>
+    <string name="msg6">Name</string>
+    <string name="progess_detail"/>
 </resources>
