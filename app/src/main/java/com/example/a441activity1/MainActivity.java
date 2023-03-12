@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    Button CreateNewEmp, ManageRecords;
+    Button CreateNewEmp, ManageRecords, EditRecords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         CreateNewEmp = (Button) findViewById(R.id.CreateNewEmp);
         ManageRecords = (Button) findViewById(R.id.ManageRecords);
+
 
         CreateNewEmp.setOnClickListener(new View.OnClickListener() {
             @Override
